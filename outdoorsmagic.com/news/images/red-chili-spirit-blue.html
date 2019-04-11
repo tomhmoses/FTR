@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="coresites-production" lang="en-GB" prefix="og: http://ogp.me/ns#" class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>    <html class="coresites-production" lang="en-GB" prefix="og: http://ogp.me/ns#" class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>    <html class="coresites-production" lang="en-GB" prefix="og: http://ogp.me/ns#" class="lt-ie9"> <![endif]-->
+<!--[if IE 9]>    <html class="coresites-production" lang="en-GB" prefix="og: http://ogp.me/ns#" class="lt-ie10"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="coresites-production" lang="en-GB" prefix="og: http://ogp.me/ns#"> <!--<![endif]-->
+  <head>
+    <title>Outdoors Magic - Outdoors Gear, Equipment, News, Rev...</title>
+    <meta charset="UTF-8" />
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1' name='viewport' />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta content='yes' name='apple-mobile-web-app-capable' />
+    <meta content='black-translucent' name='apple-mobile-web-app-status-bar-style' />
+    <link rel="profile" href="http://gmpg.org/xfn/11" />
+   	    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="https://outdoorsmagic.com/feed/" />
+    <link rel="alternate" type="text/xml" title="RSS .92" href="https://outdoorsmagic.com/feed/rss/" />
+    <link rel="alternate" type="application/atom+xml" title="Atom 0.3" href="https://outdoorsmagic.com/feed/atom/" />
+    <link rel="alternate" type="application/rss+xml" title="Outdoors Magic RSS Comments Feed" href="https://outdoorsmagic.com/comments/feed/" />
+    <link rel="icon" href="https://coresites-assets.factorymedia.com/outdoorsmagic/wp-content/themes/outdoorsmagic/assets/images/favicon.ico?t=19dec90" />
+    <link rel="apple-touch-icon" sizes="57x57" href="https://coresites-assets.factorymedia.com/outdoorsmagic/wp-content/themes/outdoorsmagic/assets/images/apple-touch-icon-57x57.png?t=19dec90" />
+    <link rel="apple-touch-icon" sizes="144x144" href="https://coresites-assets.factorymedia.com/outdoorsmagic/wp-content/themes/outdoorsmagic/assets/images/apple-touch-icon-144x144.png?t=19dec90" />
+
+    
+    <!-- GoogleJS -->
+    <script>
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
+
+    var slots = {"background":{"class":"epic-background","id":"div-gpt-ad-1494093799368-","name":"Epic_Background","sizes":[[1,1]],"mapping":false},"aside":{"class":"dmpu","id":"div-gpt-ad-1494943976136-","name":"DMPU","sizes":[[320,1],[300,250],[300,600]],"mapping":[[[450,500],[[300,600],[300,250]]],[[0,0],[[320,1],[300,250]]]]},"billboard":{"class":"epic-billboard","id":"div-gpt-ad-1494105834265-","name":"Epic_Billboard","sizes":[[300,250],[320,50],[728,90],[970,250]],"mapping":[[[970,250],[970,250]],[[728,90],[728,90]],[[0,0],[[300,250],[320,50]]]]},"mpu":{"class":"mpu","id":"div-gpt-ad-1494943923233-","name":"MPU","sizes":[[300,250]],"mapping":false}};
+    var slotNames = ["background", "aside", "billboard", "mpu"];
+    var slotCounters = {
+        "background": 0,
+        "aside": 0,
+        "billboard": 0,
+        "mpu": 0
+    };
+    var i = 0;
+    var windowWidth = document.documentElement.clientWidth;
+    var backgroundCount = 1;
+    var loaded = false;
+    var actionQueue = [];
+    var queuedAdslots = [];
+    var definedSlots = [];
+    var resizeTimer = null;
+    var adslotTimer = null;
+    var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+    var eventer = window[eventMethod];
+    var messageEvent = eventMethod === "attachEvent" ? "onmessage" : "message";
+
+    onload = pageLoaded;
+    window.onresize = function () {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(windowResize, 500);
+    };
+
+    eventer(messageEvent, function (e) {
+        var key = e.message ? "message" : "data";
+        var data = e[key];
+        var eventName = data.message || 'ignore';
+        if ('nativeAdvertisment' === eventName) {
+            whenReady('renderBackgroundAdslot', data);
+        }
+    }, false);
+
+    function pageLoaded() {
+        loaded = true;
+        dequeueActions();
+        processDfpSlots();
+    }
+
+    function whenReady(callback, data) {
+        // skip the queue if the document has already loaded
+        if (loaded === true)
+            window[callback](data);
+        else {
+            actionQueue.push({"callback": callback, "data": data});
+        }
+    }
+
+    function dequeueActions() {
+        for (var j in actionQueue) {
+            var struct = actionQueue[j];
+            window[struct.callback](struct.data);
+            delete actionQueue[j]; // cleanup after ourselves
+        }
+    }
+
+    function loadNewDfpSlot(size, childId) {
+        queuedAdslots.push({'size': size, 'childId': childId});
+        clearTimeout(adslotTimer);
+        adslotTimer = setTimeout(processDfpSlots, 250);
+    }
+
+    function renderBackgroundAdslot(data) {
+        var slotId = data.slotId;
+        var content = data.content;
+        if (typeof(content.tabletBackground) === "undefined") {
+            content.tabletBackground = content.background;
+        }
+        if (typeof(content.mobileBackground) === "undefined") {
+            content.mobileBackground = content.background;
+        }
+        var slot = document.getElementById(slotId);
+        var templateElement = document.getElementById('epic-background-template');
+        var template = _.template(templateElement.innerHTML);
+        content.backgroundCount = backgroundCount;
+        slot.parentElement.className += " epic-active";
+        slot.innerHTML = template(content);
+        backgroundCount++;
+    }
+
+    function track(data) {
+        window.Tracker.track(data.category, data.action, data.label);
+    }
+
+    (function () {
+        var gads = document.createElement('script');
+        gads.async = true;
+        gads.type = 'text/javascript';
+        var useSSL = 'https:' == document.location.protocol;
+        gads.src = (useSSL ? 'https:' : 'http:') + '//www.googletagservices.com/tag/js/gpt.js';
+        var node = document.getElementsByTagName('script')[0];
+        node.parentNode.insertBefore(gads, node);
+        googletag.cmd.push(function () {
+            googletag.pubads().addEventListener('slotRenderEnded', function (event) {
+                var id = event.slot.getSlotId().getDomId();
+                var adSlot = document.getElementById(id);
+                var dfpName = adSlot.getAttribute('data-adunit');
+                var data = {category: 'dfp', label: dfpName};
+                var size = null;
+                var action = 'adslot rendered';
+                var label = null;
+                if (event.isEmpty) {
+                    data.action = 'adslot empty';
+                    var clientWidth = document.documentElement.clientWidth;
+                    var clientHeight = document.documentElement.clientHeight;
+                    var sizes = event.slot.getSizes();
+                    var bestSizeGuess = [];
+                    for (var p in sizes) {
+                        var currentSize = sizes[p];
+                        if (currentSize.getWidth() < clientWidth && currentSize.getHeight() < clientHeight) {
+                            bestSizeGuess[0] = currentSize.getWidth();
+                            bestSizeGuess[1] = currentSize.getHeight();
+                        }
+                    }
+                    size = bestSizeGuess;
+                    if ("Teads" === dfpName) {
+                        label = "In read " + size[0] + 'x' + size[1];
+                    } else {
+                        label = size[0] + 'x' + size[1];
+                    }
+                } else {
+                    data.action = 'adslot fulfilled';
+                    size = event.size;
+                    label = size[0] + 'x' + size[1];
+                }
+                var totalData = {category: 'dfp_total', action: action, label: label};
+                whenReady('track', data);
+                whenReady('track', totalData);
+            });
+        });
+
+        googletag.cmd.push(function () {
+                        googletag.pubads().setTargeting('site', 'outdoorsmagic');
+                        googletag.pubads().enableSingleRequest();
+            googletag.pubads().disableInitialLoad();
+            googletag.enableServices();
+        });
+    })();
+
+    function windowResize() {
+        var newWindowWidth = document.documentElement.clientWidth;
+        if (windowWidth !== newWindowWidth) {
+            windowWidth = newWindowWidth;
+            for (var j in definedSlots) {
+                googletag.pubads().refresh([definedSlots[j]]);
+            }
+        }
+    }
+
+    function processDfpSlots() {
+        if (0 === queuedAdslots.length) {
+            console.log('No ads to process');
+
+            return false;
+        }
+        var start = window.performance.now();
+        var slotsToProcess = {
+            "background": [],
+            "aside": [],
+            "billboard": [],
+            "mpu": []
+        };
+        for (var k in queuedAdslots) {
+            var adslot = queuedAdslots[k];
+            var size = adslot.size;
+            var childId = adslot.childId;
+            var parentElement = document.getElementById(childId).parentElement;
+            var baseSlot = slots[size];
+            var newId = generateNextSlotName(size, baseSlot.id);
+            parentElement.setAttribute('id', newId);
+            var slot = {
+                "id": newId,
+                "name": baseSlot.name,
+                "sizes": baseSlot.sizes,
+                "mapping": baseSlot.mapping
+            };
+            slotsToProcess[size].push(slot);
+            delete queuedAdslots[k];
+        }
+        queuedAdslots = [];
+
+        var postId = 0;
+        var postClassMatches = document.body.getAttribute('class').match(/postid-([0-9]*)/);
+        if (postClassMatches) {
+            postId = postClassMatches[1];
+        }
+
+        var biggestStack = 0;
+        for (var sn in slotNames) {
+            var slotName = slotNames[sn];
+            if (slotsToProcess[slotName].length > biggestStack) {
+                biggestStack = slotsToProcess[slotName].length;
+            }
+        }
+
+        for (var j = 0; j < biggestStack; j++) {
+            var thisBatch = [];
+            for (var sn in slotNames) {
+                var slotName = slotNames[sn];
+                var thisSlot = slotsToProcess[slotName][j];
+                if ("undefined" !== typeof thisSlot) {
+                    thisBatch.push(thisSlot);
+                }
+            }
+
+            googletag.cmd.push(function () {
+                var batch = [];
+                for (var s in thisBatch) {
+                    var slot = thisBatch[s];
+                    var slotId = slot.id;
+                    var sizes = slot.sizes;
+                    var mapping;
+                    if (slot.mapping) {
+                        mapping = googletag.sizeMapping();
+                        for (var m in slot.mapping) {
+                            var mappingArray = slot.mapping[m];
+                            mapping.addSize(mappingArray[0], mappingArray[1]);
+                        }
+                    } else {
+                        mapping = googletag.sizeMapping().addSize([0, 0], []);
+                        for (var si in sizes) {
+                            var size = sizes[si];
+                            mapping.addSize(size, size);
+                        }
+                    }
+                    definedSlots[i] = googletag.defineSlot('/13526690/' + slot.name, slot.sizes, slot.id)
+                        .defineSizeMapping(mapping.build())
+                        .setTargeting("postid", postId)
+                        .setTargeting("slotid", slotId)
+                        .setTargeting("categories", window.dataLayer[1].postCategories)
+                        .addService(googletag.pubads());
+                    batch[s] = definedSlots[i];
+                    googletag.display(slot.id);
+                    i++;
+                }
+                googletag.pubads().refresh(batch);
+                var end = window.performance.now();
+                console.log("Took " + (end - start) + " microseconds to process ads");
+            });
+        }
+    }
+
+    function generateNextSlotName(size, id) {
+        var newId = id + slotCounters[size];
+        slotCounters[size]++;
+
+        return newId;
+    }
+</script>
+<script type="text/javascript" src="//native.sharethrough.com/assets/sfp.js" defer="defer"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" defer="defer"></script>
+<script type="text/template" id="epic-background-template">
+    <style>
+        #parallax-<%= backgroundCount %> {
+            background-image: url("<%= background %>");
+        }
+
+        @media screen and (max-width: 970px) {
+            #parallax-<%= backgroundCount %> {
+                background-image: url("<%= tabletBackground %>");
+            }
+        }
+
+        @media screen and (max-width: 380px) {
+            #parallax-<%= backgroundCount %> {
+                background-image: url("<%= mobileBackground %>");
+            }
+        }
+    </style>
+    <div class="background parallax" id="parallax-<%= backgroundCount %>" data-img-width="1920" data-img-height="1358" data-diff="0">
+        <a class="parallax-click-tracker" href="<%= link %>" target="_blank">Click for more</a>
+        <% if (typeof(trackingUrl) !== "undefined") { %>
+        <img class="parallax-impression-tracker" src="<%= trackingUrl %>" width="1" height="1"/>
+        <% } %>
+    </div>
+</script>
+<script type='text/javascript'>var dataLayer = [{"_type":"siteData","platform":"wordpress","config":{"infiniteScroll":{"splitposts":"0","delay":"0"},"inlineVideoAds":"0","polar":{"relatedSlots":null},"infiniteArticle":"article"},"websiteName":"Outdoors Magic","websiteSite":"outdoorsmagic","websiteSlug":"outdoorsmagic","shareThrough":{"home":"NLEECbCNrGkcg7LN2hJjUCmV","categories":"WEEJKfodCgZUEMYGq1rbdWTi","related_row":"wBLJbNk2D8ghCjYG3RKmnu39","related_aside":"ND4hXGmBABja9eJbqjCjpvXv"},"gtm.blacklist":["ga","ua"]},{"_type":"singleData","ads":true,"page":"homepage","postCategory":null,"postCategories":[],"section":null}]</script><!-- GOOGLE UNIVERSAL ANALYTICS -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-342572-123', {
+    "cookieDomain": 'outdoorsmagic.com',
+    "siteSpeedSampleRate": 10,
+    "name": "site"
+  });
+
+  ga('site.require', 'displayfeatures');
+  ga('site.require', 'linker');
+  ga('site.require', 'linkid', 'linkid.js');
+
+  
+      ga('site.send', 'pageview');
+  
+  
+  
+</script>
+    <!-- /GoogleJS -->
+
+    <!-- RadiumOne Settings -->
+
+    <script>
+    window.radiumOnePublisherKey = 'c992grc38hrurpr9p95u';    </script>
+    <!-- /RadiumOne Settings -->
+
+   	
+<meta name="googlebot-news" content="noindex" />
+<meta property="fb:pages" content="101873889849187" />
+<meta property="fb:app_id" content="1165975330090692" />
+<meta property="og:site_name" content="Outdoors Magic" />
+<meta property="og:url" content="https://outdoorsmagic.com/styleguide/template-404/" />
+<meta property="og:type" content="blog" />
+<meta property="og:title" content="Outdoors Magic - Outdoors Gear, Equipment, News, Reviews, Forums, Walking Routes and More at OutdoorsMagic.com" />
+<meta property="og:image" content="https://coresites-assets.factorymedia.com/outdoorsmagic/wp-content/themes/outdoorsmagic/assets/images/logo.png?t=19dec90" />
+<meta property="twitter:site" content="@outdoorsmagic" />
+<meta property="og:description" content="Outdoors Gear, Equipment, News, Reviews, Forums, Walking Routes and More at OutdoorsMagic.com" />
+<!-- This site is optimized with the Yoast SEO plugin v3.5 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="Outdoors Gear, Equipment, News, Reviews, Forums, Walking Routes and More at OutdoorsMagic.com"/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://outdoorsmagic.com/" />
+<meta property="og:locale" content="en_GB" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Outdoors Magic - Outdoors Gear, Equipment, News, Reviews, Forums, Walking Routes and More at OutdoorsMagic.com" />
+<meta property="og:description" content="Outdoors Gear, Equipment, News, Reviews, Forums, Walking Routes and More at OutdoorsMagic.com" />
+<meta property="og:url" content="https://outdoorsmagic.com/" />
+<meta property="og:site_name" content="Outdoors Magic" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:description" content="Outdoors Gear, Equipment, News, Reviews, Forums, Walking Routes and More at OutdoorsMagic.com" />
+<meta name="twitter:title" content="Outdoors Magic - Outdoors Gear, Equipment, News, Reviews, Forums, Walking Routes and More at OutdoorsMagic.com" />
+<script type='application/ld+json'>{"@context":"http:\/\/schema.org","@type":"WebSite","@id":"#website","url":"https:\/\/outdoorsmagic.com\/","name":"Outdoors Magic","potentialAction":{"@type":"SearchAction","target":"https:\/\/outdoorsmagic.com\/?s={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<!-- / Yoast SEO plugin. -->
+
+<link rel='dns-prefetch' href='//www.google-analytics.com' />
+<link rel='dns-prefetch' href='//tags.crwdcntrl.net' />
+<link rel='dns-prefetch' href='//s.w.org' />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/2\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/outdoorsmagic.com\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.6.1"}};
+			!function(a,b,c){function d(a){var c,d,e,f,g,h=b.createElement("canvas"),i=h.getContext&&h.getContext("2d"),j=String.fromCharCode;if(!i||!i.fillText)return!1;switch(i.textBaseline="top",i.font="600 32px Arial",a){case"flag":return i.fillText(j(55356,56806,55356,56826),0,0),!(h.toDataURL().length<3e3)&&(i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,65039,8205,55356,57096),0,0),c=h.toDataURL(),i.clearRect(0,0,h.width,h.height),i.fillText(j(55356,57331,55356,57096),0,0),d=h.toDataURL(),c!==d);case"diversity":return i.fillText(j(55356,57221),0,0),e=i.getImageData(16,16,1,1).data,f=e[0]+","+e[1]+","+e[2]+","+e[3],i.fillText(j(55356,57221,55356,57343),0,0),e=i.getImageData(16,16,1,1).data,g=e[0]+","+e[1]+","+e[2]+","+e[3],f!==g;case"simple":return i.fillText(j(55357,56835),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode8":return i.fillText(j(55356,57135),0,0),0!==i.getImageData(16,16,1,1).data[0];case"unicode9":return i.fillText(j(55358,56631),0,0),0!==i.getImageData(16,16,1,1).data[0]}return!1}function e(a){var c=b.createElement("script");c.src=a,c.type="text/javascript",b.getElementsByTagName("head")[0].appendChild(c)}var f,g,h,i;for(i=Array("simple","flag","unicode8","diversity","unicode9"),c.supports={everything:!0,everythingExceptFlag:!0},h=0;h<i.length;h++)c.supports[i[h]]=d(i[h]),c.supports.everything=c.supports.everything&&c.supports[i[h]],"flag"!==i[h]&&(c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&c.supports[i[h]]);c.supports.everythingExceptFlag=c.supports.everythingExceptFlag&&!c.supports.flag,c.DOMReady=!1,c.readyCallback=function(){c.DOMReady=!0},c.supports.everything||(g=function(){c.readyCallback()},b.addEventListener?(b.addEventListener("DOMContentLoaded",g,!1),a.addEventListener("load",g,!1)):(a.attachEvent("onload",g),b.attachEvent("onreadystatechange",function(){"complete"===b.readyState&&c.readyCallback()})),f=c.source||{},f.concatemoji?e(f.concatemoji):f.wpemoji&&f.twemoji&&(e(f.twemoji),e(f.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+<link rel='stylesheet' id='fm-theme-v2-css'  href="https://coresites-assets.factorymedia.com/outdoorsmagic/wp-content/themes/outdoorsmagic/assets/stylesheets/theme-v2.css?t=19dec90" type='text/css' media='all' />
+<script type='text/javascript' src='https://outdoorsmagic.com/wp-includes/js/jquery/jquery.js?ver=1.12.4'></script>
+<script type='text/javascript' src='https://outdoorsmagic.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=1.4.1'></script>
+<link rel='https://api.w.org/' href='https://outdoorsmagic.com/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://outdoorsmagic.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://outdoorsmagic.com/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 4.6.1" />
+  </head>
+
+  <body id="top" class="home blog js-autoplay-featured" data-site-slug="outdoorsmagic"  data-typekit-id="nlc7gae" >
+  <!-- GoogleTagManager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5WF7P9"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5WF7P9');</script>
+<!-- /GoogleTagManager -->
+  <div id="fb-root"></div>
+
+  <header class="c-site-header">
+
+  <div class="u-sticky-wrapper">
+       <div class="epic-wrapper clearfix">
+            <div class="adslot epic-background" data-adunit="Epic_Background">
+    <div id="div-gpt-ad-5938ccf4d2f0d9.03507018"></div>
+    <script>
+        loadNewDfpSlot('background', 'div-gpt-ad-5938ccf4d2f0d9.03507018');
+    </script>
+</div>            <div class="adslot epic-billboard" data-adunit="Epic_Billboard">
+    <div id="div-gpt-ad-5938ccf4d2f2d6.21735784"></div>
+    <script>
+        loadNewDfpSlot('billboard', 'div-gpt-ad-5938ccf4d2f2d6.21735784');
+    </script>
+</div>        </div>
+  </div>
+
+  <div class="c-navbar-placeholder">
+    <div class="c-navbar-primary js-nav-is-fixed">
+      <div class="c-navbar-primary__inner o-grid-full-width u-no-padding">
+
+        <div class="c-navbar-primary__logo-wrapper">
+          <h1 class="c-navbar-primary__logo u-no-padding">
+            <a class="c-navbar-primary__logo-link c-navbar-primary__logo-image" href="https://outdoorsmagic.com" title="Homepage">
+              <img class="u-svg-inject" src="https://coresites-assets.factorymedia.com/outdoorsmagic/wp-content/themes/outdoorsmagic/assets/images/logo.svg?t=19dec90" alt="Outdoors Magic - Outdoors Gear, Equipment, News, Reviews, Forums, Walking Routes and More at OutdoorsMagic.com">
+            </a>
+          </h1>
+
+          <div class="c-nav-toggle__wrapper">
+            <button class="c-nav-toggle c-nav-toggle--nav-feature js-primary-nav-toggle">
+              <div class="c-nav-toggle__inner">
+                <i class="c-nav-toggle__icon"></i>
+                <span>Menu</span>
+              </div>
+              <span class="c-nav-toggle__title"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <nav class="c-navbar-primary__main-nav-items">
+        <ul id="menu-top-menu" class="c-navbar-primary__top-items"><li id="menu-item-9923" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-9923"><a href="/">Home</a></li>
+<li id="menu-item-64" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-64"><a href="https://outdoorsmagic.com/reviews/">Reviews</a></li>
+<li id="menu-item-63" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-63"><a href="https://outdoorsmagic.com/advice/">Advice</a></li>
+<li id="menu-item-25965" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-25965"><a href="https://outdoorsmagic.com/outdoor-100-summer-2017">Outdoor 100</a></li>
+<li id="menu-item-56" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-56"><a href="https://outdoorsmagic.com/news/">News</a></li>
+<li id="menu-item-7926" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-7926"><a href="http://forums.outdoorsmagic.com">Forums</a></li>
+<li id="menu-item-12485" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-12485"><a href="https://outdoorsmagic.com/advice/group-tests/hot-deals-2016/">Deals</a></li>
+<li id="menu-item-14440" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14440"><a href="https://outdoorsmagic.com/nikwax">Nikwax Dirty Weekender</a></li>
+<li id="menu-item-20470" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-20470"><a href="https://outdoorsmagic.com/contact-us/">Contact Us</a></li>
+<li id="menu-item-20471" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-20471"><a href="https://outdoorsmagic.com/keen-trailfit/">Keen TrailFit</a></li>
+</ul>      </nav>
+
+      <nav class="c-navbar-primary__social u-no-padding">
+            <a class="c-navbar-primary__social-link" href="https://www.facebook.com/outdoorsmagic/" title="Find us on Facebook" target='_blank' >
+      <i class="fa fa-facebook"></i>
+    </a>
+      <a class="c-navbar-primary__social-link" href="http://twitter.com/outdoorsmagic" title="Follow us on Twitter" target='_blank' >
+      <i class="fa fa-twitter"></i>
+    </a>
+      <a class="c-navbar-primary__social-link" href="/newsletter" title="Subscribe to our Newsletter" target='_blank' >
+      <i class="fa fa-envelope"></i>
+    </a>
+        </nav>
+    </div>
+  </div>
+
+  <div class="c-navbar-side__nav-items-wrapper js-primary-nav-menu">
+    <button class="c-nav-toggle c-nav-toggle--nav-side js-primary-nav-toggle">
+      <div class="c-nav-toggle__inner">
+        <i class="c-nav-toggle__icon"></i>
+        <span>Menu</span>
+      </div>
+      <span class="c-nav-toggle__title"></span>
+    </button>
+    <div class="o-grid">
+      <div class="c-search-form__wrapper">
+  <form method="get" class="c-search-form" action="https://outdoorsmagic.com/">
+    <input type="text" class="c-search-form__input" name="s" placeholder="Search" required />
+    <button type="submit" class="c-search-form__submit" name="submit">
+      Go    </button>
+  </form>
+</div>
+      <nav class="c-navbar-side__nav-items">
+        <ul id="menu-all-menu" class="nav-primary-list"><li id="menu-item-84" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-parent-item menu-item-84"><a href="https://outdoorsmagic.com/reviews/">Reviews</a>
+<ul class="sub-menu">
+	<li id="menu-item-93" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-93"><a href="https://outdoorsmagic.com/reviews/waterproof-jackets/">Waterproof Jackets</a></li>
+	<li id="menu-item-79" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-79"><a href="https://outdoorsmagic.com/reviews/down-jackets/">Down and Insulated Jackets</a></li>
+	<li id="menu-item-90" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-90"><a href="https://outdoorsmagic.com/reviews/softshell-jackets/">Softshell Jackets</a></li>
+	<li id="menu-item-92" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-92"><a href="https://outdoorsmagic.com/reviews/walking-trousers/">Walking Trousers</a></li>
+	<li id="menu-item-86" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-86"><a href="https://outdoorsmagic.com/reviews/walking-boots/">Walking Boots</a></li>
+	<li id="menu-item-88" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-88"><a href="https://outdoorsmagic.com/reviews/trail-shoes/">Trail and Scramble Shoes</a></li>
+	<li id="menu-item-83" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-83"><a href="https://outdoorsmagic.com/reviews/hiking-packs/">Backpacks</a></li>
+	<li id="menu-item-9966" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-9966"><a href="https://outdoorsmagic.com/reviews/base-layers/">Mid and Base Layers</a></li>
+	<li id="menu-item-89" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-89"><a href="https://outdoorsmagic.com/reviews/sleeping-bags/">Sleeping Bags</a></li>
+	<li id="menu-item-91" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-91"><a href="https://outdoorsmagic.com/reviews/tents/">Tents</a></li>
+	<li id="menu-item-87" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-87"><a href="https://outdoorsmagic.com/reviews/walking-equipment/">Walking Equipment and Accessories</a></li>
+</ul>
+</li>
+<li id="menu-item-74" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children menu-parent-item menu-item-74"><a href="https://outdoorsmagic.com/advice/">Advice</a>
+<ul class="sub-menu">
+	<li id="menu-item-76" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-76"><a href="https://outdoorsmagic.com/advice/buyers-guides/">Buyer&#8217;s Guides</a></li>
+	<li id="menu-item-78" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-78"><a href="https://outdoorsmagic.com/advice/group-tests/">Group Tests and Best Buys</a></li>
+	<li id="menu-item-81" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-81"><a href="https://outdoorsmagic.com/advice/how-to-guides/">How To Guides</a></li>
+	<li id="menu-item-82" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-82"><a href="https://outdoorsmagic.com/advice/outdoor-features/">Outdoor Features</a></li>
+</ul>
+</li>
+<li id="menu-item-80" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-80"><a href="https://outdoorsmagic.com/news/">News</a></li>
+<li id="menu-item-7929" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-7929"><a href="http://forums.outdoorsmagic.com">Forums</a></li>
+</ul>      </nav>
+      <div class="c-navbar-side__social-items-wrapper">
+        <nav class="c-navbar-side__social-items">
+              <a class="c-navbar-primary__social-link" href="https://www.facebook.com/outdoorsmagic/" title="Find us on Facebook" target='_blank' >
+      <i class="fa fa-facebook"></i>
+    </a>
+      <a class="c-navbar-primary__social-link" href="http://twitter.com/outdoorsmagic" title="Follow us on Twitter" target='_blank' >
+      <i class="fa fa-twitter"></i>
+    </a>
+      <a class="c-navbar-primary__social-link" href="/newsletter" title="Subscribe to our Newsletter" target='_blank' >
+      <i class="fa fa-envelope"></i>
+    </a>
+      <a class="c-navbar-primary__social-link" href="https://outdoorsmagic.com/feed/" title="Our RSS Feed" target='_blank' >
+      <i class="fa fa-feed"></i>
+    </a>
+          </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="c-navbar-bottom">
+  <ul class="c-navbar-bottom__menu-items">
+    <li class="c-navbar-bottom__menu-item">
+      <a class="c-navbar-bottom__menu-item-link" href="https://outdoorsmagic.com" title="Homepage">
+        <i class="c-icon fa-home"></i>
+        <span>Home</span>
+      </a>
+    </li>
+    <li class="c-navbar-bottom__menu-item">
+      <a class="c-share-toggle c-navbar-bottom__menu-item-link">
+        <i class="c-icon fa-share"></i>
+        <span>Share</span>
+      </a>
+    </li>
+    <li class="c-navbar-bottom__menu-item">
+      <a class="c-search-toggle c-navbar-bottom__menu-item-link">
+        <i class="c-icon fa-search"></i>
+        <span>Search</span>
+      </a>
+    </li>
+    <li class="c-navbar-bottom__menu-item">
+      <a class="c-navbar-bottom__menu-item-link c-nav-toggle c-nav-toggle--nav-bottom js-primary-nav-toggle">
+        <div class="c-nav-toggle__inner">
+          <i class="c-nav-toggle__icon"></i>
+        </div>
+        <span>Menu</span>
+      </a>
+    </li>
+  </ul>
+
+  <div class="c-navbar-bottom__share">
+    <div class="c-article-share__wrapper">
+  <div class="c-article-share">
+    <h3 class="c-article-share__title">Share</h3>
+  </div>
+</div>
+  </div>
+
+  <div class="c-navbar-bottom__search">
+    <div class="c-search-form__wrapper">
+  <form method="get" class="c-search-form" action="https://outdoorsmagic.com/">
+    <input type="text" class="c-search-form__input" name="s" placeholder="Search" required />
+    <button type="submit" class="c-search-form__submit" name="submit">
+      Go    </button>
+  </form>
+</div>
+  </div>
+</div><div class="o-grid">
+  <div class="c-article-body u-text-center c-article-body--404-intro">
+
+    <h1 class="c-page__title">Not Found - 404</h1>
+    <p>It looks like nothing was found at this url.</p>
+    <p class="u-text-center">
+      <a href="/" class="c-btn">
+        <i class="c-icon fa-fw fa-angle-left"></i>
+        Back to Homepage      </a>
+    </p>
+
+  </div>
+</div>
+
+<div class="c-taxonomy-page__header o-grid--full-width">
+  <div class="o-grid">
+          <h1 class="c-taxonomy-page__title">Archives</h1>
+            </div>
+</div>
+
+<div class="c-taxonomy-page o-grid">
+  <div class="o-cards">
+  <div class="o-cards__inner">
+    <div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--waterproof-jackets " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/6jKiB8myoqkHbN2VPzF8AMY0NTI=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fkineticplus04.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/kineticplus04.jpg' data-srcset='https://thumbor-static.factorymedia.com/swlQAlAXY07HpUOnVsGS_D2WUec=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fkineticplus04.jpg 680w,https://thumbor-static.factorymedia.com/6pFimav15cJ9a_4QkqQhXeUeOEE=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fkineticplus04.jpg 510w,https://thumbor-static.factorymedia.com/M79s7hBED--fpyOq0DfrSTFjEhY=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fkineticplus04.jpg 340w,https://thumbor-static.factorymedia.com/_B0TnCzoY1FjL665f9HkdkvVafY=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fkineticplus04.jpg 226w,https://thumbor-static.factorymedia.com/TBoXJyZXd8vsCEoHKVy_kMGNOb0=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fkineticplus04.jpg 170w,https://thumbor-static.factorymedia.com/6jKiB8myoqkHbN2VPzF8AMY0NTI=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fkineticplus04.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Waterproof Jackets</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/waterproof-jackets/rab-kinetic-plus-jacket-first-look/">Rab Kinetic Plus Jacket  | First Look</a>
+        </h4>
+
+                  <p class="c-card__excerpt">Is it a waterproof soft shell or a soft feeling waterproof? We don't care, all we know is that we like the Kinetic Plus Jacket...</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/waterproof-jackets/rab-kinetic-plus-jacket-first-look/">Rab Kinetic Plus Jacket  | First Look</a>
+
+  </div>
+
+</div><div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--walking-equipment " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/6Be3vNiVcZIy2h3f1roxfMEHDUY=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fnomad09.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/nomad09.jpg' data-srcset='https://thumbor-static.factorymedia.com/b6so7Vq6NX9u8LAxC2hX5P4WQso=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fnomad09.jpg 680w,https://thumbor-static.factorymedia.com/Pp2zSDymMtbZE2Hf_mHOOAH6sHw=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fnomad09.jpg 510w,https://thumbor-static.factorymedia.com/6X6Fk7sd7nLbUmdfXVI0QKzes5A=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fnomad09.jpg 340w,https://thumbor-static.factorymedia.com/Mvp8_uiGGor7ELmfzweNwBE-d38=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fnomad09.jpg 226w,https://thumbor-static.factorymedia.com/AK1JcdAvhdv0iVuvTwQLGC3Exhs=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fnomad09.jpg 170w,https://thumbor-static.factorymedia.com/6Be3vNiVcZIy2h3f1roxfMEHDUY=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fnomad09.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Walking Equipment and Accessories</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/walking-equipment/goal-zero-nomad-7-plus-solar-panel-preview/">Goal Zero Nomad 7 Plus Solar Panel | Preview</a>
+        </h4>
+
+                  <p class="c-card__excerpt">New lighter, more efficient and intelligent version of Goal Zero's Nomad 7 solar panel arrives for spring.</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/walking-equipment/goal-zero-nomad-7-plus-solar-panel-preview/">Goal Zero Nomad 7 Plus Solar Panel | Preview</a>
+
+  </div>
+
+</div><div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--sleeping-bags " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/DfI8R7ipNLzT_w8Y6tgtH5oSrdM=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fpatbag01.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/patbag01.jpg' data-srcset='https://thumbor-static.factorymedia.com/E9JioyitUWbOJK21_D0SnVclxM4=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fpatbag01.jpg 680w,https://thumbor-static.factorymedia.com/pQMZEzvCfBi-HKNUZpQDYoAIpto=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fpatbag01.jpg 510w,https://thumbor-static.factorymedia.com/60JywUAeU0JN9bVJZw6srHqrQP0=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fpatbag01.jpg 340w,https://thumbor-static.factorymedia.com/KBUE2viozUFbEhk928KFT_ekftE=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fpatbag01.jpg 226w,https://thumbor-static.factorymedia.com/xYwYYZThVnjTlcdKqpce7yXNMf4=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fpatbag01.jpg 170w,https://thumbor-static.factorymedia.com/DfI8R7ipNLzT_w8Y6tgtH5oSrdM=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fpatbag01.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Sleeping Bags</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/sleeping-bags/patagonia-850-7%cb%9ac-sleeping-bag-review/">Patagonia 850 Down -7˚C Sleeping Bag | Review</a>
+        </h4>
+
+                  <p class="c-card__excerpt">Patagonia's new down-filled sleeping bag features an unusual central-zip system and top quality components.</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/sleeping-bags/patagonia-850-7%cb%9ac-sleeping-bag-review/">Patagonia 850 Down -7˚C Sleeping Bag | Review</a>
+
+  </div>
+
+</div><div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--sleeping-bags " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/V0sIq0V2GpjBx6tDaO4msEvWKtc=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fhelium01.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/helium01.jpg' data-srcset='https://thumbor-static.factorymedia.com/Cw3hTeEVpHOK-xbp5RLF_5WxGaI=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fhelium01.jpg 680w,https://thumbor-static.factorymedia.com/1GOALG1NxCr8VK1YHq_SbmbmqEc=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fhelium01.jpg 510w,https://thumbor-static.factorymedia.com/RSJpWfuQ1JHRzIUUz_yTPfZIjdw=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fhelium01.jpg 340w,https://thumbor-static.factorymedia.com/yLitDHcwj5cRL6DmYssIdXQJ9qM=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fhelium01.jpg 226w,https://thumbor-static.factorymedia.com/iJ_QWGcJi75piUqIgfTLXXWs6rI=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fhelium01.jpg 170w,https://thumbor-static.factorymedia.com/V0sIq0V2GpjBx6tDaO4msEvWKtc=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fhelium01.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Sleeping Bags</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/sleeping-bags/mountain-equipment-helium-400-sleeping-bag-review-2/">Mountain Equipment Helium 400 Sleeping Bag | Review</a>
+        </h4>
+
+                  <p class="c-card__excerpt">Mountain Equipment's redesigned three-season lightweight is a great mix of warmth, weight and cunning design.</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/sleeping-bags/mountain-equipment-helium-400-sleeping-bag-review-2/">Mountain Equipment Helium 400 Sleeping Bag | Review</a>
+
+  </div>
+
+</div><div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--tents " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/gJyLKjaFiB8KLj4vz0h5FwVlJdc=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Faccess2_02.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/access2_02.jpg' data-srcset='https://thumbor-static.factorymedia.com/5LkjxDQguOjBtvCCiTDAFyzXlAQ=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Faccess2_02.jpg 680w,https://thumbor-static.factorymedia.com/f4NIGImZ9n4PlEKMkZr9mcuKLVU=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Faccess2_02.jpg 510w,https://thumbor-static.factorymedia.com/o5b058beRk6LhvAVYFwju--G2f8=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Faccess2_02.jpg 340w,https://thumbor-static.factorymedia.com/Or5SEgQS9-z-aBGg8HimQCTe6jg=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Faccess2_02.jpg 226w,https://thumbor-static.factorymedia.com/F-2u4MtU735RzDNTEdtdimbk8rc=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Faccess2_02.jpg 170w,https://thumbor-static.factorymedia.com/gJyLKjaFiB8KLj4vz0h5FwVlJdc=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Faccess2_02.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Tents</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/tents/msr-access-2-tent-detailed-review/">MSR Access 2 Tent  | Detailed Review</a>
+        </h4>
+
+                  <p class="c-card__excerpt">The new MSR Access 2 is a beautifully built, impressively stable, four-season, two-person valley tent that weighs less than most three-season tents</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/tents/msr-access-2-tent-detailed-review/">MSR Access 2 Tent  | Detailed Review</a>
+
+  </div>
+
+</div><div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--news " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/u9DDsJ9Mb7iD4VQ1a6og5IlgXIA=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FColumbia-launches-partnership-with-UK-National-Parks-2.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/Columbia-launches-partnership-with-UK-National-Parks-2.jpg' data-srcset='https://thumbor-static.factorymedia.com/lZnujs9usIHPTnAhiMABi8XcX1U=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FColumbia-launches-partnership-with-UK-National-Parks-2.jpg 680w,https://thumbor-static.factorymedia.com/03nHjdbLegfeyAyVxPmT1lukvtU=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FColumbia-launches-partnership-with-UK-National-Parks-2.jpg 510w,https://thumbor-static.factorymedia.com/QGoEWH-EnN1d18pFL6fMkyTa6Bw=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FColumbia-launches-partnership-with-UK-National-Parks-2.jpg 340w,https://thumbor-static.factorymedia.com/zYFdoyF4UA4GIktHpXTjlLLvX0Y=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FColumbia-launches-partnership-with-UK-National-Parks-2.jpg 226w,https://thumbor-static.factorymedia.com/gMhiYT6Eh1yLbNCHidfrQ-Woryg=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FColumbia-launches-partnership-with-UK-National-Parks-2.jpg 170w,https://thumbor-static.factorymedia.com/u9DDsJ9Mb7iD4VQ1a6og5IlgXIA=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FColumbia-launches-partnership-with-UK-National-Parks-2.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">News</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/news/columbia-launches-partnership-uks-national-parks/">Park Partnership | Columbia Sportswear Will Sponsor the UK's National Parks</a>
+        </h4>
+
+                  <p class="c-card__excerpt">This is an exciting announcement for everyone in the UK who loves the outdoors</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/news/columbia-launches-partnership-uks-national-parks/">Columbia Launches a Partnership with the UK's National Parks</a>
+
+  </div>
+
+</div>  </div>
+
+  <div class="c-companion-slot">
+    <div class="adslot dmpu" data-adunit="DMPU">
+    <div id="div-gpt-ad-5938ccf50af4e3.46148036"></div>
+    <script>
+        loadNewDfpSlot('aside', 'div-gpt-ad-5938ccf50af4e3.46148036');
+    </script>
+</div>  </div>
+
+  <div class="o-cards__inner">
+    <div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--walking-equipment " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/JNAIR7UTUj7DjJr1RmFI8_J7Yf8=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fct07.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/ct07.jpg' data-srcset='https://thumbor-static.factorymedia.com/xB1yhjquehcnSxKRhJlJ5Tjd4To=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fct07.jpg 680w,https://thumbor-static.factorymedia.com/unOY9DTI3jZExk-YufI2fkPNtSs=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fct07.jpg 510w,https://thumbor-static.factorymedia.com/jz4D6_jnz7HfiWnnaQGoSsXgZyw=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fct07.jpg 340w,https://thumbor-static.factorymedia.com/yoOdgRBcvFor7QOT_eOuU4fNIq0=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fct07.jpg 226w,https://thumbor-static.factorymedia.com/syeeFPjhZtS12DxQAZykkRQZ0U8=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fct07.jpg 170w,https://thumbor-static.factorymedia.com/JNAIR7UTUj7DjJr1RmFI8_J7Yf8=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fct07.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Walking Equipment and Accessories</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/walking-equipment/sonder-transmitter-carbon-review/">Sonder Transmitter Carbon | Review</a>
+        </h4>
+
+                  <p class="c-card__excerpt">Alpkit's latest Sonder Transmitter Carbon mountain bike is lighter, lower, slacker and all round faster, funner and better than the original aluminium version.</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/walking-equipment/sonder-transmitter-carbon-review/">Sonder Transmitter Carbon | Review</a>
+
+  </div>
+
+</div><div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--walking-boots " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/6vfQHm-79qd9weBzC0d17AOgt5o=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FAku-2.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/Aku-2.jpg' data-srcset='https://thumbor-static.factorymedia.com/jxT4BIImBD-pHV_SDsqjFLL0IaQ=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FAku-2.jpg 680w,https://thumbor-static.factorymedia.com/Uw2g7X56n2LoqaFMiJlbQS6GQlA=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FAku-2.jpg 510w,https://thumbor-static.factorymedia.com/Ora6o5x1vgv7U4RqHZDlIJJKWvU=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FAku-2.jpg 340w,https://thumbor-static.factorymedia.com/DllYqaTbdpusB2sgmQf-JA_vN10=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FAku-2.jpg 226w,https://thumbor-static.factorymedia.com/ffXczzGOstX7X1rsXzIUxYNnCak=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FAku-2.jpg 170w,https://thumbor-static.factorymedia.com/6vfQHm-79qd9weBzC0d17AOgt5o=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FAku-2.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Walking Boots</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/walking-boots/aku-la-val-gtx-review/">Aku La Val GTX | Review</a>
+        </h4>
+
+                  <p class="c-card__excerpt">With soles inspired by mountain bike tyres, the Aku La Val GTX is at the forefront of boot innovation.</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/walking-boots/aku-la-val-gtx-review/">Aku La Val GTX | Review</a>
+
+  </div>
+
+</div><div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--group-tests " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/Qild0LLnM6oWRK807sxtC3ysEx0=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fdaypacksfeatured.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/daypacksfeatured.jpg' data-srcset='https://thumbor-static.factorymedia.com/ynEjsx3XHtOU6UlUXE8p1qAUfZQ=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fdaypacksfeatured.jpg 680w,https://thumbor-static.factorymedia.com/QfwKTx3ogNwwfZyL8RJsabeLSTs=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fdaypacksfeatured.jpg 510w,https://thumbor-static.factorymedia.com/9xjCbcC-X-v8omuxkm0jQtqNt10=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fdaypacksfeatured.jpg 340w,https://thumbor-static.factorymedia.com/ItGA20mc6C6P5BknABnKyMOkoU4=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fdaypacksfeatured.jpg 226w,https://thumbor-static.factorymedia.com/xr1ZhsHbaEnu4bS81UrYRjsopx4=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fdaypacksfeatured.jpg 170w,https://thumbor-static.factorymedia.com/Qild0LLnM6oWRK807sxtC3ysEx0=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fdaypacksfeatured.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Group Tests and Best Buys</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/hiking-packs/best-daypacks-reviewed-2017/">Best Daypacks Reviewed 2017</a>
+        </h4>
+
+                  <p class="c-card__excerpt">We've tested 16 of the very best 2017 hill and mountain walking daypacks to help you choose the best load-hauler for one-day outings in the...</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/hiking-packs/best-daypacks-reviewed-2017/">Best Daypacks Reviewed 2017</a>
+
+  </div>
+
+</div><div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--buyers-guides " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/VrzdzJFhzTSFbDA2uA-Sf9hlyRo=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FCasio-Pro-Trek-Smartwatch-review-0001-HEADER-2.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/Casio-Pro-Trek-Smartwatch-review-0001-HEADER-2.jpg' data-srcset='https://thumbor-static.factorymedia.com/QpieX2Ab9XpK8889T41SNj9Ypcg=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FCasio-Pro-Trek-Smartwatch-review-0001-HEADER-2.jpg 680w,https://thumbor-static.factorymedia.com/KQXzl4lNEMlW-gJgU0zn_gbmWVE=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FCasio-Pro-Trek-Smartwatch-review-0001-HEADER-2.jpg 510w,https://thumbor-static.factorymedia.com/sgicFr6XFX5nFvrXbn2Mkog017k=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FCasio-Pro-Trek-Smartwatch-review-0001-HEADER-2.jpg 340w,https://thumbor-static.factorymedia.com/sxlJ-62V-kmv_ketRavgcbBvbyM=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FCasio-Pro-Trek-Smartwatch-review-0001-HEADER-2.jpg 226w,https://thumbor-static.factorymedia.com/HRsyWsWf7-Szt8L1xqe7QAgtiis=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FCasio-Pro-Trek-Smartwatch-review-0001-HEADER-2.jpg 170w,https://thumbor-static.factorymedia.com/VrzdzJFhzTSFbDA2uA-Sf9hlyRo=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FCasio-Pro-Trek-Smartwatch-review-0001-HEADER-2.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Buyer's Guides</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/advice/buyers-guides/review-casio-pro-trek-outdoor-smartwatch-viewranger/">First Look | Casio Pro Trek  Outdoor Smartwatch With ViewRanger App</a>
+        </h4>
+
+                  <p class="c-card__excerpt">A hands-on review of the Casio Pro trek outdoor smartwatch with ViewRanger app</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/advice/buyers-guides/review-casio-pro-trek-outdoor-smartwatch-viewranger/">Casio Pro Trek Outdoor Smartwatch With ViewRanger App | First Look</a>
+
+  </div>
+
+</div><div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--reviews " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/PzCNLDDhJB85pUNPNqwgznsya08=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5753_1920px.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/20170330_OM_daypacks_P7A5753_1920px.jpg' data-srcset='https://thumbor-static.factorymedia.com/T3YGgHUiIl47ausxF_OugpaE-Dw=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5753_1920px.jpg 680w,https://thumbor-static.factorymedia.com/ZNGd-jUnAIVNGIHa-1yMXeXikZE=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5753_1920px.jpg 510w,https://thumbor-static.factorymedia.com/zqLrnucQ6OzMyEO4R8BakYBmieY=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5753_1920px.jpg 340w,https://thumbor-static.factorymedia.com/QOKHbTVXJFIJsSaOOvnX4AUWrZ0=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5753_1920px.jpg 226w,https://thumbor-static.factorymedia.com/iOQGz5-I7xOa-APtqR2-xqLflik=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5753_1920px.jpg 170w,https://thumbor-static.factorymedia.com/PzCNLDDhJB85pUNPNqwgznsya08=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5753_1920px.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Reviews</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/hiking-packs/osprey-mutant-28-pack-review/">Osprey Mutant 28 Pack | Review</a>
+        </h4>
+
+                  <p class="c-card__excerpt">The smaller of Osprey's Mutant mountain packs is a cracking mix of comfortable, stable carry and clever refinements that make it one of the best...</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/hiking-packs/osprey-mutant-28-pack-review/">Osprey Mutant 28 Pack | Review</a>
+
+  </div>
+
+</div><div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--reviews " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/S2jcJtR_GUvdi_vBIfp7kNFMq7M=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A6072_1920px.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/20170330_OM_daypacks_P7A6072_1920px.jpg' data-srcset='https://thumbor-static.factorymedia.com/MH08m5ncHcA1UOiTy03HsZYo9hc=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A6072_1920px.jpg 680w,https://thumbor-static.factorymedia.com/reC3IUudrhP2TgaOPbiW5wXzC0o=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A6072_1920px.jpg 510w,https://thumbor-static.factorymedia.com/EeZbKhDhGvwk8oJ2kW4DGoAdbv4=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A6072_1920px.jpg 340w,https://thumbor-static.factorymedia.com/olQRGOYeLvILL2kdyvp5In2ctJY=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A6072_1920px.jpg 226w,https://thumbor-static.factorymedia.com/1J4lHnfH7AR1TKsNGDTXYQPMDh8=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A6072_1920px.jpg 170w,https://thumbor-static.factorymedia.com/S2jcJtR_GUvdi_vBIfp7kNFMq7M=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A6072_1920px.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Reviews</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/hiking-packs/black-diamond-speed-30-pack-review/">Black Diamond Speed 30 Pack | Review</a>
+        </h4>
+
+                  <p class="c-card__excerpt">Black Diamond's Speed 30 is a reasonably light, strippable traditional alpine pack complete with floating lid and solid build quality.</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/hiking-packs/black-diamond-speed-30-pack-review/">Black Diamond Speed 30 Pack | Review</a>
+
+  </div>
+
+</div>  </div>
+</div>
+</div>
+
+  <div class="c-adslot-billboard--midway js-lander-ad-set">
+      <div class="epic-wrapper clearfix">
+          <div class="adslot epic-background" data-adunit="Epic_Background">
+    <div id="div-gpt-ad-5938ccf535b481.52717454"></div>
+    <script>
+        loadNewDfpSlot('background', 'div-gpt-ad-5938ccf535b481.52717454');
+    </script>
+</div>          <div class="adslot epic-billboard" data-adunit="Epic_Billboard">
+    <div id="div-gpt-ad-5938ccf535b943.75059047"></div>
+    <script>
+        loadNewDfpSlot('billboard', 'div-gpt-ad-5938ccf535b943.75059047');
+    </script>
+</div>      </div>
+  </div>
+
+  <div class="c-taxonomy-page o-grid">
+    <div class="o-cards">
+  <div class="o-cards__inner">
+    <div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--reviews " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/GmAJvSNLT3-zIAnNR7QQVkdblA0=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5881_1920px.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/20170330_OM_daypacks_P7A5881_1920px.jpg' data-srcset='https://thumbor-static.factorymedia.com/95vJDRY3vVikNVuZtPyz3pzilws=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5881_1920px.jpg 680w,https://thumbor-static.factorymedia.com/cPQYl47BhgjGNykhO8gTexlonGY=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5881_1920px.jpg 510w,https://thumbor-static.factorymedia.com/fIBQleSAb3y7luADzBBFiFg4GLA=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5881_1920px.jpg 340w,https://thumbor-static.factorymedia.com/Ss3oCxDVeIhKKdLg76Mrg2VcR5w=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5881_1920px.jpg 226w,https://thumbor-static.factorymedia.com/koerx4X0pDT2DmXDvZP6nTwRXHo=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5881_1920px.jpg 170w,https://thumbor-static.factorymedia.com/GmAJvSNLT3-zIAnNR7QQVkdblA0=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5881_1920px.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Reviews</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/hiking-packs/patagonia-ascensionist-30-pack-review/">Patagonia Ascensionist 30 Pack | Review</a>
+        </h4>
+
+                  <p class="c-card__excerpt">Patagonia's sleek lightweight, minimalist Ascensionist 30 alpine pack works well, but calls for careful loading to stay comfortable.</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/hiking-packs/patagonia-ascensionist-30-pack-review/">Patagonia Ascensionist 30 Pack | Review</a>
+
+  </div>
+
+</div><div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--reviews " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/JPTvb_bauTPanDAvcRS3DjZzGHM=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5842_1920px.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/20170330_OM_daypacks_P7A5842_1920px.jpg' data-srcset='https://thumbor-static.factorymedia.com/Ulbr8UfNoqeP5qvuulqGPw9x-V0=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5842_1920px.jpg 680w,https://thumbor-static.factorymedia.com/60JEcjDRlQmrGHLdmZw0GfkWpy4=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5842_1920px.jpg 510w,https://thumbor-static.factorymedia.com/5VFmCFab-FNTcm_jbnBJSNPt-_U=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5842_1920px.jpg 340w,https://thumbor-static.factorymedia.com/oCqcA3k8y4q-9B_-lSkIE-k8wgA=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5842_1920px.jpg 226w,https://thumbor-static.factorymedia.com/sUhCvFBF6-ZKl5XldOoJqDB3XTA=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5842_1920px.jpg 170w,https://thumbor-static.factorymedia.com/JPTvb_bauTPanDAvcRS3DjZzGHM=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5842_1920px.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Reviews</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/hiking-packs/lowe-alpine-alpine-ascent-32-pack-review/">Lowe Alpine Alpine Ascent 32 Pack | Review</a>
+        </h4>
+
+                  <p class="c-card__excerpt">Lowe Alpine's new light-ish weight technical Alpine Ascent 32 mountain pack is a well thought-out balance of sturdiness and sensible weight saving.</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/hiking-packs/lowe-alpine-alpine-ascent-32-pack-review/">Lowe Alpine Alpine Ascent 32 Pack | Review</a>
+
+  </div>
+
+</div><div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--reviews " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/dSJonUl4w6WRHbPYDq4vKLNeq8w=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5643_1920px.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/20170330_OM_daypacks_P7A5643_1920px.jpg' data-srcset='https://thumbor-static.factorymedia.com/QE3IPlikOrwj2dZgdeVgPPYlieA=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5643_1920px.jpg 680w,https://thumbor-static.factorymedia.com/B6qYQ2hhgpgUfHkMSnc6VpKsBls=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5643_1920px.jpg 510w,https://thumbor-static.factorymedia.com/4Rr8SAlJlOxRJ_Yecn5_jkWPbZ4=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5643_1920px.jpg 340w,https://thumbor-static.factorymedia.com/y5LNOM68d0N9akZZrOwDrl8lX3o=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5643_1920px.jpg 226w,https://thumbor-static.factorymedia.com/RGuJUMo6Ml9CLiIfuF2EEhoPl-k=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5643_1920px.jpg 170w,https://thumbor-static.factorymedia.com/dSJonUl4w6WRHbPYDq4vKLNeq8w=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5643_1920px.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Reviews</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/hiking-packs/salomon-x-alp-30-pack-review/">Salomon X ALP 30 Pack | Review</a>
+        </h4>
+
+                  <p class="c-card__excerpt">Salomon's experimental lightweight alpine pack has some really interesting features, but works best if you keep things fast and light.</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/hiking-packs/salomon-x-alp-30-pack-review/">Salomon X ALP 30 Pack | Review</a>
+
+  </div>
+
+</div><div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--reviews " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/DeNUDbTEGwi4IoBsS8PP-rqJGZk=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fmammut_creon01.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/mammut_creon01.jpg' data-srcset='https://thumbor-static.factorymedia.com/wRIyWMD8wgGQrgXB6PCKBSwZUTM=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fmammut_creon01.jpg 680w,https://thumbor-static.factorymedia.com/I31O0Uhzwha8jvYJe7Wgk_Y6pe0=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fmammut_creon01.jpg 510w,https://thumbor-static.factorymedia.com/gjTcpRdUHYVqxnZTZq0tZUj4uO4=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fmammut_creon01.jpg 340w,https://thumbor-static.factorymedia.com/K7btrwobVSk_4dNy4cI1jAZmLpU=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fmammut_creon01.jpg 226w,https://thumbor-static.factorymedia.com/BR4WcYykw8wB6lORhaFi93EoYF0=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fmammut_creon01.jpg 170w,https://thumbor-static.factorymedia.com/DeNUDbTEGwi4IoBsS8PP-rqJGZk=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2Fmammut_creon01.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Reviews</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/hiking-packs/mammut-creon-tour-28-pack-review/">Mammut Creon Tour 28 Pack | Review</a>
+        </h4>
+
+                  <p class="c-card__excerpt">Mammut's slick ventilated hiker combines light weight with a comfortable, taut carry and all the features you need in an all-round mountain walking daypack.</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/hiking-packs/mammut-creon-tour-28-pack-review/">Mammut Creon Tour 28 Pack | Review</a>
+
+  </div>
+
+</div><div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--reviews " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/vaDo-sJDNAxzH2exUeFLlKg9R9w=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5973_1920px.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/20170330_OM_daypacks_P7A5973_1920px.jpg' data-srcset='https://thumbor-static.factorymedia.com/ShOtre_JW_zSwXz4Z1AfTfucDMQ=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5973_1920px.jpg 680w,https://thumbor-static.factorymedia.com/mdRtkA-GZEbTRWWA-9WCPTse_00=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5973_1920px.jpg 510w,https://thumbor-static.factorymedia.com/MScYUbBVbUyWIrtpwlx5zRg3-h8=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5973_1920px.jpg 340w,https://thumbor-static.factorymedia.com/7JAXuRZcKFGup9JKt7avwu0qckE=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5973_1920px.jpg 226w,https://thumbor-static.factorymedia.com/H8uWPzZaPhM6Ne2jDUsAC5PydxU=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5973_1920px.jpg 170w,https://thumbor-static.factorymedia.com/vaDo-sJDNAxzH2exUeFLlKg9R9w=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170330_OM_daypacks_P7A5973_1920px.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Reviews</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/hiking-packs/haglofs-roc-helios-25-pack-review/">Haglöfs Roc Helios 25 Pack | Review</a>
+        </h4>
+
+                  <p class="c-card__excerpt">The Helios 25's aggressive minimalism and distinctive colour scheme mark out a simple, super-lightweight climbing daypack.</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/hiking-packs/haglofs-roc-helios-25-pack-review/">Haglöfs Roc Helios 25 Pack | Review</a>
+
+  </div>
+
+</div><div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--walking-equipment " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/D2JXuCixbt4IKcLxezwtemVjW9o=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FSea-To-Summit-Comfort-Plus-Mat-Camping-mat-002.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/Sea-To-Summit-Comfort-Plus-Mat-Camping-mat-002.jpg' data-srcset='https://thumbor-static.factorymedia.com/bb5U_Lk72rl3nuEKk9hqD0BOTNg=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FSea-To-Summit-Comfort-Plus-Mat-Camping-mat-002.jpg 680w,https://thumbor-static.factorymedia.com/b2FLjLwFgBRnJRfPvKRV2pPbOYI=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FSea-To-Summit-Comfort-Plus-Mat-Camping-mat-002.jpg 510w,https://thumbor-static.factorymedia.com/m8Nb0oPPpbnH75jBGYF6cCBwJ1w=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FSea-To-Summit-Comfort-Plus-Mat-Camping-mat-002.jpg 340w,https://thumbor-static.factorymedia.com/gp7-mxBqzkAAzKWkPwX1crixXn0=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FSea-To-Summit-Comfort-Plus-Mat-Camping-mat-002.jpg 226w,https://thumbor-static.factorymedia.com/77KFoftO5IR9ogfUmiDcDhQAvTw=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FSea-To-Summit-Comfort-Plus-Mat-Camping-mat-002.jpg 170w,https://thumbor-static.factorymedia.com/D2JXuCixbt4IKcLxezwtemVjW9o=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2FSea-To-Summit-Comfort-Plus-Mat-Camping-mat-002.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Walking Equipment and Accessories</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/walking-equipment/sea-summit-comfort-plus-si-mat-review/">Sea To Summit Comfort Plus SI Mat | Review</a>
+        </h4>
+
+                  <p class="c-card__excerpt">A self-inflating Comfort Plus mat from Sea to Summit which won't weigh down your backpack.</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/walking-equipment/sea-summit-comfort-plus-si-mat-review/">Sea To Summit Comfort Plus SI Mat | Review</a>
+
+  </div>
+
+</div>  </div>
+
+  <div class="c-companion-slot">
+    <div class="adslot dmpu" data-adunit="DMPU">
+    <div id="div-gpt-ad-5938ccf55dc089.98682375"></div>
+    <script>
+        loadNewDfpSlot('aside', 'div-gpt-ad-5938ccf55dc089.98682375');
+    </script>
+</div>  </div>
+
+  <div class="o-cards__inner">
+    <div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--reviews " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/q44bhg35p3fs576g5fLe_jL3VvE=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5165_1920px.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/20170328_OM_daypacks_P7A5165_1920px.jpg' data-srcset='https://thumbor-static.factorymedia.com/qgT2JqegcPsiFTowJxJnRJGlZms=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5165_1920px.jpg 680w,https://thumbor-static.factorymedia.com/sE0DDAVt_MbpGZDAJ_ifEH0sldM=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5165_1920px.jpg 510w,https://thumbor-static.factorymedia.com/fVHri5xZ0bUA4PpIcSOY_JriN8w=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5165_1920px.jpg 340w,https://thumbor-static.factorymedia.com/IIZcR4gB2tmBRMP14NaB3n1t2C4=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5165_1920px.jpg 226w,https://thumbor-static.factorymedia.com/Uv2Hy42lWWj6JuUPj-1XZbm6NhQ=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5165_1920px.jpg 170w,https://thumbor-static.factorymedia.com/q44bhg35p3fs576g5fLe_jL3VvE=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5165_1920px.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Reviews</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/hiking-packs/mountain-hardwear-scrambler-rt-35-outdry-pack-review/">Mountain Hardwear Scrambler RT 35 OutDry Pack | Review</a>
+        </h4>
+
+                  <p class="c-card__excerpt">MHW's OutDry waterproof technology works brilliantly with an added roll-top closure making this one of the few genuinely waterproof mountain daypacks out there.</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/hiking-packs/mountain-hardwear-scrambler-rt-35-outdry-pack-review/">Mountain Hardwear Scrambler RT 35 OutDry Pack | Review</a>
+
+  </div>
+
+</div><div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--reviews " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/_PIEaMuajKrqHcgwj1LC6FHV-cA=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5102_1920px.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/20170328_OM_daypacks_P7A5102_1920px.jpg' data-srcset='https://thumbor-static.factorymedia.com/BlRrrmwKSBPiUldURXf7FYW28nU=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5102_1920px.jpg 680w,https://thumbor-static.factorymedia.com/KO2vMel6mf60eazQvHyC3eKWLik=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5102_1920px.jpg 510w,https://thumbor-static.factorymedia.com/T2a-vNSWCiyumSHgNHclMDmMtQs=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5102_1920px.jpg 340w,https://thumbor-static.factorymedia.com/3M0KBQHHuCOtzs6V4xTtGbpzp6M=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5102_1920px.jpg 226w,https://thumbor-static.factorymedia.com/zgRJhLfgfFpkQ0PAfEIq4prxFrc=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5102_1920px.jpg 170w,https://thumbor-static.factorymedia.com/_PIEaMuajKrqHcgwj1LC6FHV-cA=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5102_1920px.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Reviews</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/hiking-packs/fjallraven-abisko-friluft-35-pack-review/">Fjällräven Abisko Friluft 35 Pack  | Review</a>
+        </h4>
+
+                  <p class="c-card__excerpt">Fjällräven's first ventilated back system pack is a tough-feeling all-rounder made from the brand's proofed polyester cotton G-1000 Eco fabric.</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/hiking-packs/fjallraven-abisko-friluft-35-pack-review/">Fjällräven Abisko Friluft 35 Pack  | Review</a>
+
+  </div>
+
+</div><div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--reviews " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/sSEionaNUkswWRhmrB7hwAWWSg0=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5045_1920px.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/20170328_OM_daypacks_P7A5045_1920px.jpg' data-srcset='https://thumbor-static.factorymedia.com/cAAj_4BJuudKypq-xcg5C2a-7Ww=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5045_1920px.jpg 680w,https://thumbor-static.factorymedia.com/vgWo46f3TK_z7pONZcoO_T3nKvc=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5045_1920px.jpg 510w,https://thumbor-static.factorymedia.com/Vo_Gc8TcHjii1V3f8xmmofh5KPE=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5045_1920px.jpg 340w,https://thumbor-static.factorymedia.com/_YweMxAZYVDaCQHnJX--M0Bmmao=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5045_1920px.jpg 226w,https://thumbor-static.factorymedia.com/U8A8AjsNG5S7KyYjiHJSVNRUAyY=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5045_1920px.jpg 170w,https://thumbor-static.factorymedia.com/sSEionaNUkswWRhmrB7hwAWWSg0=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5045_1920px.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Reviews</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/hiking-packs/lowe-alpine-airzone-hike-30-review/">Lowe Alpine AirZone Hike 30 | Review</a>
+        </h4>
+
+                  <p class="c-card__excerpt">Lowe Alpine's ventilated hiking pack mixes one of the best vented back systems out there with solid build and lots and lots of pockets.</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/hiking-packs/lowe-alpine-airzone-hike-30-review/">Lowe Alpine AirZone Hike 30 | Review</a>
+
+  </div>
+
+</div><div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--reviews " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/L4XMJILz3ItjKIIV1EB9ia0me_4=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5306_1920px.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/20170328_OM_daypacks_P7A5306_1920px.jpg' data-srcset='https://thumbor-static.factorymedia.com/1Uknb5sknVVa4yrIyIoZjMUtk-0=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5306_1920px.jpg 680w,https://thumbor-static.factorymedia.com/1v3ohWRU7Gqi57RrMhrqpB4MgjM=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5306_1920px.jpg 510w,https://thumbor-static.factorymedia.com/RQAIJ0cyzNwHC--VJ92EikjtcUo=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5306_1920px.jpg 340w,https://thumbor-static.factorymedia.com/Gz8EDTNjXPgx1h5wfvXSyA2Ifa8=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5306_1920px.jpg 226w,https://thumbor-static.factorymedia.com/saZWNVXFBUOgPn3lAogkyo_nOqc=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5306_1920px.jpg 170w,https://thumbor-static.factorymedia.com/L4XMJILz3ItjKIIV1EB9ia0me_4=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5306_1920px.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Reviews</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/hiking-packs/montane-featherlite-30-pack-review/">Montane Featherlite 30 Pack | Review</a>
+        </h4>
+
+                  <p class="c-card__excerpt">Montane's new lightweight hill and mountain pack treads the thin line between weight saving and usability with assured flair.</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/hiking-packs/montane-featherlite-30-pack-review/">Montane Featherlite 30 Pack | Review</a>
+
+  </div>
+
+</div><div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--reviews " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/h_8Ax_drlhzPaMDlv_IwgWpugGo=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A4774_1920px.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/20170328_OM_daypacks_P7A4774_1920px.jpg' data-srcset='https://thumbor-static.factorymedia.com/CBmqItH_EY-1r0Pp7yPGqz-8P9k=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A4774_1920px.jpg 680w,https://thumbor-static.factorymedia.com/KnSxYVV6KV9novAW5Z8xrqOT8yY=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A4774_1920px.jpg 510w,https://thumbor-static.factorymedia.com/gbM6J7IfKOiCHRRlX4XDH3a0Q4I=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A4774_1920px.jpg 340w,https://thumbor-static.factorymedia.com/l-jOjxwVVrfO4EbSgIgp0_Mdr1k=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A4774_1920px.jpg 226w,https://thumbor-static.factorymedia.com/VfoKv7FrieizgWo84k4SVELhaWY=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A4774_1920px.jpg 170w,https://thumbor-static.factorymedia.com/h_8Ax_drlhzPaMDlv_IwgWpugGo=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A4774_1920px.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Reviews</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/hiking-packs/osprey-stratos-34-pack-review/">Osprey Stratos 34 Pack | Review</a>
+        </h4>
+
+                  <p class="c-card__excerpt">Updated ventilated hiking day-pack mixes Ospreys excellent build quality, myriad features and a supportive trampoline-style back system.</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/hiking-packs/osprey-stratos-34-pack-review/">Osprey Stratos 34 Pack | Review</a>
+
+  </div>
+
+</div><div class="c-card__wrapper   c-card--sm c-card--hide-meta c-card--reviews " >
+
+  <div class="c-card " >
+
+    <div class="c-card__media-wrapper">
+      <div class="c-card__media-inner">
+        <img class='c-card__image js-lazyload' src='https://thumbor-static.factorymedia.com/PIOB7V54TDlv4pJtsVwdjPxKqrU=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5405_1920px.jpg' data-src='https://coresites-cdn.factorymedia.com/outdoorsmagic/wp-content/uploads/2017/05/20170328_OM_daypacks_P7A5405_1920px.jpg' data-srcset='https://thumbor-static.factorymedia.com/NjKpjEgmGRMuLigT0uCg0H7p6Eo=/680x380/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5405_1920px.jpg 680w,https://thumbor-static.factorymedia.com/wBBdFJ8nCRFRZL4TplFd1tFrCko=/510x285/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5405_1920px.jpg 510w,https://thumbor-static.factorymedia.com/FdE80hBI4_UbEhv81FMI0Fidp1E=/340x190/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5405_1920px.jpg 340w,https://thumbor-static.factorymedia.com/QCXj3GcM0OLMWGmGhm5LPnWyx70=/226x126/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5405_1920px.jpg 226w,https://thumbor-static.factorymedia.com/GAPdO-1y00eWW7flql7wLSbJ34w=/170x95/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5405_1920px.jpg 170w,https://thumbor-static.factorymedia.com/PIOB7V54TDlv4pJtsVwdjPxKqrU=/150x83/smart/http%3A%2F%2Fcoresites-cdn.factorymedia.com%2Foutdoorsmagic%2Fwp-content%2Fuploads%2F2017%2F05%2F20170328_OM_daypacks_P7A5405_1920px.jpg 150w,' data-sizes='auto' >      </div>
+    </div>
+
+    <div class="c-card__title-wrapper">
+      <div class="c-card__title-inner">
+                  <h5 class="c-card__taxonomy">Reviews</h5>
+        
+        <h4 class="c-card__title">
+          <a class="c-card__title-link" href="https://outdoorsmagic.com/reviews/hiking-packs/gregory-zulu-30-pack-review/">Gregory Zulu 30 Pack | Review</a>
+        </h4>
+
+                  <p class="c-card__excerpt">Excellent ventilated back-type pack from the US pack brand Gregory mixes support, cooling air flow and all mod cons in an excellent all-rounder.</p>
+        
+        <aside class="c-card__meta">
+          
+          
+                  </aside>
+      </div>
+    </div>
+
+    <a class="c-card__link u-faux-block-link__overlay" href="https://outdoorsmagic.com/reviews/hiking-packs/gregory-zulu-30-pack-review/">Gregory Zulu 30 Pack | Review</a>
+
+  </div>
+
+</div>  </div>
+</div>
+  </div>
+
+        
+<footer class="c-site-footer">
+  <nav class="c-navbar-footer__top-items">
+  <ul id="menu-footer-menu" class="c-navbar-footer__top-items"><li id="menu-item-19560" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19560"><a href="/">Home</a></li>
+<li id="menu-item-19558" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-19558"><a href="https://outdoorsmagic.com/reviews/">Reviews</a></li>
+<li id="menu-item-19556" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-19556"><a href="https://outdoorsmagic.com/advice/">Advice</a></li>
+<li id="menu-item-19557" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-19557"><a href="https://outdoorsmagic.com/news/">News</a></li>
+<li id="menu-item-19561" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19561"><a href="http://forums.outdoorsmagic.com">Forums</a></li>
+<li id="menu-item-19562" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19562"><a href="https://outdoorsmagic.com/advice/group-tests/hot-deals-2016/">Deals</a></li>
+<li id="menu-item-19559" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19559"><a href="https://outdoorsmagic.com/contact-us/">Contact Us</a></li>
+</ul></nav>
+
+<div class="o-grid">
+
+  <div class="c-navbar-footer__logo-wrapper o-col-md-12">
+    <a class="c-navbar-footer__logo" href="https://outdoorsmagic.com" title="Homepage">
+      <img class="u-svg-inject" src="https://coresites-assets.factorymedia.com/outdoorsmagic/wp-content/themes/outdoorsmagic/assets/images/logo.svg?t=19dec90" alt="Outdoors Magic - Outdoors Gear, Equipment, News, Reviews, Forums, Walking Routes and More at OutdoorsMagic.com">    </a>
+  </div>
+
+  <div class="o-col-md--6">
+  <ul class="c-navbar-footer__legal">
+    <li class="c-navbar-footer__legal-item">
+      <a class="c-navbar-footer__legal-link" href="https://factorymedia.com/terms">Terms &amp; Conditions</a>
+    </li>
+    <li class="c-navbar-footer__legal-item">
+      <a class="c-navbar-footer__legal-link" href="https://factorymedia.com/privacy">Privacy Policy</a>
+    </li>
+    <li class="c-navbar-footer__legal-item">
+      <a class="c-navbar-footer__legal-link" href="https://factorymedia.com/competition">Competition Rules</a>
+    </li>
+  </ul>
+</div>
+
+<div class="o-col-md--6">
+  <p class="c-navbar-footer__copyright">&copy; Outdoors Magic 2017</p>
+</div>
+
+</div>
+</footer>
+    <div class="c-modal c-modal--newsletter-terms js-newsletter-terms-dialog">
+  <h5 class="c-modal__title">Newsletter Terms &amp; Conditions</h5>
+  <p>Please enter your email so we can keep you updated with news, features and the latest offers. If you are not interested you can unsubscribe at any time. We will never sell your data and you'll only get messages from us and our partners whose products and services we think you'll enjoy.</p>
+  <p>Read our full <a href="https://factorymedia.com/privacy" target="_blank">Privacy Policy</a> as well as <a href="https://factorymedia.com/terms" target="_blank">Terms &amp; Conditions</a>.</p>
+  <button class="c-modal__close-btn js-close-btn" title="Close"><i class="fa fa-times "></i></button>
+</div>
+
+<div class="c-modal__overlay js-modal-overlay"></div>
+<div class="c-cookie-policy wrapper">
+
+    <p class="c-cookie-text">
+      <em>Cookies help us deliver our services.</em>
+      By using this website, you agree to our use of cookies.      <a href="https://mpora.com/about/privacy" target='_blank' class='c-cookie-policy-learn-more'>
+        Learn More      </a>
+    </p>
+
+    <a href="#" class="c-cookie-policy-hide js-close">
+      <i class='fa fa-check'></i>
+      <b>Accept</b>
+    </a>
+
+</div><div class='c-environment-notice c-environment-notice--production'>production</div><script src="https://coresites-assets.factorymedia.com/outdoorsmagic/wp-content/themes/foundation/assets/javascripts/app.js?t=19dec90" defer="defer" async type="text/javascript"></script>
+<script src="https://coresites-assets.factorymedia.com/outdoorsmagic/wp-content/themes/foundation/assets/javascripts/tracking/moat-injector.js?t=19dec90" defer="defer" async type="text/javascript"></script>
+<script src="//www.google-analytics.com/cx/api.js" defer="defer" async type="text/javascript"></script>
+<script src="https://tags.crwdcntrl.net/c/7077/cc_af.js" defer="defer" async type="text/javascript"></script>
+<script src="https://outdoorsmagic.com/wp-includes/js/wp-embed.min.js?ver=4.6.1" defer="defer" async type="text/javascript"></script>
+      </body>
+</html>
+
+<!-- Page Cache Debug Info
+
+Cache Key: 	outdoorsmagic:production:19dec90:page:https:/styleguide/template-404/ 
+Caching Time: 	Thu, 08 Jun 2017 04:05:08 
+-->

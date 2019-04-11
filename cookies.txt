@@ -1,0 +1,22 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+www.dropbox.com	TRUE	/	FALSE	1999999999	cookie_notif	seen
+dropbox.com	TRUE	/	FALSE	1999999999	locale	en
+www.dropbox.com	TRUE	/	FALSE	1999999999	gvc	MzEyMjY1MjEyNTgzNTc4NDMwMDY2NDU4NjY5MzAwOTc5Mjc4NDk%3D
+www.dropbox.com	TRUE	/	FALSE	1999999999	seen-sl-signup-modal	VHJ1ZQ%3D%3D
+dropbox.com	TRUE	/	FALSE	1999999999	t	v5EiiRlBexwICQ6L3gVj9EoL
+www.dropbox.com	TRUE	/	FALSE	1999999999	__Host-js_csrf	v5EiiRlBexwICQ6L3gVj9EoL
+www.theshortspan.com	TRUE	/	FALSE	1999999999	BIGipServerZebedee	90220736.20480.0000
+www.theshortspan.com	TRUE	/	FALSE	1999999999	TS01237438	01700654a6a628f9d50357ad0e87a292d56ecd9e6378591e15f8ef0bf09b3d834bb881117cb6202fa718d13635db16f84e0d1c1b4b
+.scarpettearrampicata.it	TRUE	/	FALSE	1999999999	__cfduid	dde34461916ebd78685bfa55c5784697f1555003619
+.campmor.com	TRUE	/	FALSE	1999999999	__cfduid	db5f585488fa2dd80c241d8f99bb539511555003656
+www.dropbox.com	TRUE	/	FALSE	1999999999	seen-sl-download-modal	VHJ1ZQ%3D%3D
+.dropboxstatic.com	TRUE	/	FALSE	1999999999	__cfduid	dd09086bc094cda8d78cc933143965fb51555003837
+.xtreme-everest.co.uk	TRUE	/	FALSE	1999999999	__cfduid	daa46deb36d5a06372db8ccf662840d3c1555004763
+secure.villaspain.co.uk	TRUE	/	FALSE	1999999999	PHPSESSID	p4m806dp8qrlhpt1igv55jqh91
+upload.wikimedia.org	TRUE	/	FALSE	1999999999	WMF-Last-Access	11-Apr-2019
+.juvenileclothing.com	TRUE	/	FALSE	1999999999	__cfduid	dd09cae63c2c7b1ecd81e733acd7d5d441555005533
+.lambiek.net	TRUE	/	FALSE	1999999999	__cfduid	d91003b7416469b1baa31fee3dc96bde41555005664
+www.chetwynd.info	TRUE	/	FALSE	1999999999	BIGipServerZebedee	90220736.20480.0000
+www.chetwynd.info	TRUE	/	FALSE	1999999999	TS01237438	01700654a641da734ed60e33868509ecb06be9913dfcfe371f46d4eec3ccaafd812febc331ddd312b7f4f4cb38a8d18a4f99d1d35a
+
